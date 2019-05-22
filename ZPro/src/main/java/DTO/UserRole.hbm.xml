@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 06.Nis.2019 14:48:57 by Hibernate Tools 5.3.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="DTO.UserRole" optimistic-lock="version" polymorphism="implicit" schema="public" select-before-update="false" table="user_role">
+        <id name="roleid" type="int">
+            <column name="role_id"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="roleName" optimistic-lock="true" type="string" unique="false">
+            <column length="200" name="role_name" not-null="true"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="false" mutable="true" name="shopUsers" optimistic-lock="true" sort="unsorted" table="shop_user">
+            <key on-delete="noaction">
+                <column name="role_id" not-null="true"/>
+            </key>
+            <one-to-many class="DTO.ShopUser" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

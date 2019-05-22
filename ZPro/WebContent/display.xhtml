@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ez="http://java.sun.com/jsf/composite/ezcomp"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<h:form id="form">
+	<p:panel header="Cart">
+	<h:outputText value="#{shoppingCart.cartSize} #{shoppingCart.item}" id="cart" />
+	<h:outputLink value="viewCart.xhtml">View Cart</h:outputLink>
+	</p:panel>
+	
+	
+		<p:dataGrid var="product" value="#{displayProduct.allProducts}"
+			columns="3" rows="10" paginator="true" id="p"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="3,5,10">
+			<f:facet name="header">
+            All Products
+        </f:facet>
+			<p:panel header="#{product.proName}" style="text-align:center">
+				<h:panelGrid columns="1" style="text-align:center">
+					<h:graphicImage name="#{product.proUrl}" library="imgs" width="100"
+						height="100" />
+					<h:outputText value="#{product.proPrice}" />
+					<p:commandButton action="#{shoppingCart.addToCart(product)}" value="Add To Cart" ajax="false" >
+					</p:commandButton>
+					<p:commandLink update=":form:pro" oncomplete="PF('proDetails').show()" title="View Detail">
+						<h:outputText styleClass="ui-icon ui-icon-search" style="margin:0 auto;" />
+						<f:setPropertyActionListener value="#{product}" target="#{displayProduct.selectedProduct}" />
+					</p:commandLink>
+				</h:panelGrid>
+			</p:panel>
+		</p:dataGrid>
+
+		<p:dialog header="Product Info" widgetVar="proDetails" modal="true" showEffect="fade" hideEffect="fade" rendererType="false">
+			<p:outputPanel id="pro" style="text-align:center;">
+				<p:panelGrid columns="2">
+					<f:facet name="header">
+						<h:graphicImage name="#{displayProduct.selectedProduct.proUrl}" library="imgs"
+							width="100" height="100" />
+					</f:facet>
+
+					<h:outputText value="Description:" />
+					<h:outputText value="#{displayProduct.selectedProduct.proDesc}" />
+
+					<h:outputText value="Price" />
+					<h:outputText value="$#{displayProduct.selectedProduct.proPrice}" />
+
+					<h:outputText value="Quantity:" />
+					<h:outputText value="#{displayProduct.selectedProduct.proQty}"/>
+
+				</p:panelGrid>
+			</p:outputPanel>
+
+
+
+		</p:dialog>
+
+
+	</h:form>
+</h:body>
+</html>

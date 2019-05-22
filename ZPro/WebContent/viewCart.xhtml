@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ez="http://java.sun.com/jsf/composite/ezcomp"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<h:form id="form">
+
+		<p:dataTable var="cart" value="#{shoppingCart.cart}" rows="10"
+			paginator="true" id="p"
+			paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+			rowsPerPageTemplate="3,5,10">
+			<f:facet name="header">
+                  Your Cart
+            </f:facet>
+			<p:column headerText="Product Name">
+				<h:outputText value="#{cart.p.proName}" />
+			</p:column>
+			<p:column headerText="Quantity">
+				<h:outputText value="#{cart.quantity}" />
+			</p:column>
+			<p:column headerText="Price">
+            <h:outputText value="#{cart.p.proPrice}" />
+            </p:column>
+            <p:column headerText="Image">
+            <h:graphicImage name="#{cart.p.proUrl}" library="imgs" width="100"
+						height="100" />
+            </p:column>
+            <p:column headerText="Delete">
+            <h:commandButton action="#{shoppingCart.RemoveCart(cart)}" value="Delete" />
+            </p:column>
+            <f:facet name="footer">
+            Total : <h:outputLabel value="#{shoppingCart.total}" />
+            </f:facet>
+		</p:dataTable>
+		
+		<p:commandButton value="Update" action="#{shoppingCart.UpdateCart()}" ajax="false" />
+		<h:outputLink value="display.xhtml">Continue Shopping</h:outputLink>
+		<h:outputLink value="paytype.xhtml">Continue Shopping</h:outputLink>
+		
+		
+	</h:form>
+</h:body>
+</html>

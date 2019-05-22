@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 06.Nis.2019 14:48:57 by Hibernate Tools 5.3.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="DTO.DeliveryCost" optimistic-lock="version" polymorphism="implicit" schema="public" select-before-update="false" table="delivery_cost">
+        <id name="id" type="int">
+            <column name="id"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="zoneName" optimistic-lock="true" type="serializable" unique="false">
+            <column name="zone_name" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="deliveryCost" optimistic-lock="true" type="double" unique="false">
+            <column name="delivery_cost" not-null="true" precision="17" scale="17"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="proOrders" optimistic-lock="true" sort="unsorted" table="pro_order">
+            <key on-delete="noaction">
+                <column name="deliver_id" not-null="true"/>
+            </key>
+            <one-to-many class="DTO.ProOrder" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

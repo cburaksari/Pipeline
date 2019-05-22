@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 06.Nis.2019 14:48:57 by Hibernate Tools 5.3.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class dynamic-insert="false" dynamic-update="false" mutable="true" name="DTO.ProOrderDetails" optimistic-lock="version" polymorphism="implicit" schema="public" select-before-update="false" table="pro_order_details">
+        <id name="orderDetail" type="int">
+            <column name="order_detail"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="DTO.ProOrder" embed-xml="true" fetch="select" insert="true" name="proOrder" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="order_id" not-null="true"/>
+        </many-to-one>
+        <many-to-one class="DTO.Product" embed-xml="true" fetch="select" insert="true" name="product" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="pro_id" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="proQty" optimistic-lock="true" type="int" unique="false">
+            <column name="pro_qty" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>

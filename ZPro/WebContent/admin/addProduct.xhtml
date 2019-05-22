@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:ez="http://java.sun.com/jsf/composite/ezcomp"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<h:body>
+	<h:form enctype="multipart/form-data">
+		<p:growl id="msg" closable="true" showDetail="true"></p:growl>
+		<p:panelGrid columns="2">
+			<h:outputLabel value="Category Name: " />
+			<p:selectOneMenu value="#{productService.catName}">
+				<f:selectItems value="#{subCategoryService.categories}" />
+				<p:ajax update="sct"></p:ajax>
+			</p:selectOneMenu>
+			<h:outputLabel value="Sub ategory Name: " />
+			<p:selectOneMenu value="#{productService.subCatName}" id="sct">
+				<f:selectItems value="#{productService.subCategoryName}" />
+			</p:selectOneMenu>
+			<h:outputLabel value="Product Name: " />
+			<h:inputText value="#{productService.product.proName}" />
+			<h:outputLabel value="Product Qty: " />
+			<h:inputText value="#{productService.product.proQty}" />
+			<h:outputLabel value="Product Price: " />
+			<h:inputText value="#{productService.product.proPrice}" />
+			<h:outputLabel value="Select Image: " />
+			<p:fileUpload value="#{productService.file}" mode="simple" />
+			<h:outputLabel value="uploaded Image: " />
+			<h:graphicImage value="#{productService.product.proUrl}"
+				library="imgs" />
+			<h:outputLabel value="Product Desc: " />
+			<h:inputText value="#{productService.product.proDesc}" />
+			<p:commandButton action="#{productService.addProduct}" value="Save"
+				update="msg" ajax="false"></p:commandButton>
+
+		</p:panelGrid>
+	</h:form>
+
+	<h:form>
+		<h:outputLabel
+			value="I am secured, if you are seeing me it means you have logged in correctly, great!"></h:outputLabel>
+		<h:commandLink id="logout" action="/admin/logout.xhtml?faces-redirect=true" 
+			value="Logout"></h:commandLink>
+		<h:messages></h:messages>
+	</h:form>
+</h:body>
+</html>
